@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class InkyBehaviour : _GhostBehaviour
 {
+    [SerializeField] Vector3 initialPosition = new Vector3(-1, 0, 0);
+    [SerializeField] Vector3 cornerPosition = new Vector3(-8, -10, 0);
+
     public override Vector3 ChaseMovement(Transform ghost, Transform pacman, Transform option = null)
     {
         throw new System.NotImplementedException();
