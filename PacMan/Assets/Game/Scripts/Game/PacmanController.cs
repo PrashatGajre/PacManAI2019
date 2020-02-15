@@ -133,6 +133,7 @@ public class PacmanController : MonoBehaviour
 		{
 			GameDirector.Instance.ChangeGameState(GameDirector.States.enState_PacmanInvincible);
 			Destroy(_powerPellet.gameObject);
+            GameDirector.Instance.OnGhostAfraid();
 		}
 
 		GhostController _ghost = other.GetComponent<GhostController>();
@@ -147,6 +148,11 @@ public class PacmanController : MonoBehaviour
 			else if (GameDirector.Instance.state == GameDirector.States.enState_PacmanInvincible)
 			{
 				_ghost.Kill();
+                _ghost.fsm.SetBool("Chase", false);
+                _ghost.fsm.SetBool("Scatter", false);
+                _ghost.fsm.SetBool("Afraid", false);
+                _ghost.fsm.SetTrigger("Death");
+                _ghost.GetComponent<CircleCollider2D>().enabled = false; //turning off collider so it does not collide;
 			}
 		}
 	}

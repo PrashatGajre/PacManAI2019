@@ -4,21 +4,26 @@ using UnityEngine;
 
 public class BlinkyBehaviour : _GhostBehaviour
 {
-    [SerializeField] Vector3 initialPosition = new Vector3(0, 1, 0);
-    [SerializeField] Vector3 cornerPosition = new Vector3(8, 9, 0);
-
-    public override Vector3 ChaseMovement(Transform ghost, Transform pacman, Transform option = null)
+    public Transform runToPosition;
+    public override Vector3 ChaseMovement(Transform ghost, Transform option = null)
     {
-        return pacman.position;
+        return pacman.transform.position;
     }
 
-    public override Vector3 FrightenedMovement(Transform ghost)
+    public override Vector3 FrightenedMovement(Transform ghost, Transform option = null)
     {
-        throw new System.NotImplementedException();
+        if (!frightenedCondition.Evaluate(ghost, runToPosition))
+        {
+            return runToPosition.position;
+        }
+        else
+        {
+            return ghost.position;
+        }
     }
 
     public override Vector3 ScatterMovement(Transform ghost, Transform target)
     {
-        throw new System.NotImplementedException();
+        return cornerPosition;
     }
 }

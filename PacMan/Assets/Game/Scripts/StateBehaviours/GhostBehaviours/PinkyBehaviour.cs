@@ -4,21 +4,28 @@ using UnityEngine;
 
 public class PinkyBehaviour : _GhostBehaviour
 {
-    [SerializeField] Vector3 initialPosition = new Vector3(1, 0, 0);
-    [SerializeField] Vector3 cornerPosition = new Vector3(8, -10, 0);
-
-    public override Vector3 ChaseMovement(Transform ghost, Transform pacman, Transform option = null)
+    public Transform transform1;
+    public Transform transform2;
+    public override Vector3 ChaseMovement(Transform ghost, Transform option = null)
     {
-        throw new System.NotImplementedException();
+        Vector3 finalPosition = pacman.transform.position + ((Vector3)pacman.MoveDirections[(int)pacman.moveDirection] * 4);
+        return finalPosition;
     }
 
-    public override Vector3 FrightenedMovement(Transform ghost)
+    public override Vector3 FrightenedMovement(Transform ghost, Transform option = null)
     {
-        throw new System.NotImplementedException();
+        if (frightenedCondition.Evaluate(ghost, transform1))
+        {
+            return transform1.position;
+        }
+        else
+        {
+            return transform2.position;
+        }
     }
 
     public override Vector3 ScatterMovement(Transform ghost, Transform target)
     {
-        throw new System.NotImplementedException();
+        return cornerPosition;
     }
 }

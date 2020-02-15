@@ -9,6 +9,7 @@ public class GhostController : MonoBehaviour
 	public Vector2 ReturnLocation = new Vector2(0, 0);
 
 	private Animator _animator;
+    public Animator fsm;
     public Transform PacMan;
 	public Vector2 moveToLocation;
 	public float speed;
@@ -68,6 +69,11 @@ public class GhostController : MonoBehaviour
 		_animator.SetBool("IsDead", true);
 	}
 
+	public void Respawn()
+	{
+		_animator.SetBool("IsDead", false);
+	}
+
 	public void GameStateChanged(GameDirector.States _state)
 	{
 		switch (_state)
@@ -84,4 +90,9 @@ public class GhostController : MonoBehaviour
 				break;
 		}
 	}
+       
+    private void Update()
+    {
+        Debug.DrawLine(transform.position, moveToLocation, Color.green);
+    }
 }
